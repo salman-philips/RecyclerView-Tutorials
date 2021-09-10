@@ -1,0 +1,2 @@
+rootProject.name = "abR RecyclerView App"
+include ':app'
