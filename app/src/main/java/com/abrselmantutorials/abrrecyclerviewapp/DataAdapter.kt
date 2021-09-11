@@ -7,7 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class DataAdapter(private val modelList: List<DataModelForRecyclerViewItem>) :
+class DataAdapter(
+    private val modelList: List<DataModelForRecyclerViewItem>,
+    private val dataItemOnClickListener: DataItemOnClickListener
+) :
     RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
 
 
@@ -25,12 +28,29 @@ class DataAdapter(private val modelList: List<DataModelForRecyclerViewItem>) :
     }
 
     override fun getItemCount(): Int {
-      return modelList.size
+        return modelList.size
     }
 
-    class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val imageView: ImageView = itemView.findViewById(R.id.image_view)
         val heading: TextView = itemView.findViewById(R.id.heading)
         val description: TextView = itemView.findViewById(R.id.description)
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                dataItemOnClickListener.onDataItemClick(position)
+            }
+        }
+
+    }
+
+    interface DataItemOnClickListener {
+        fun onDataItemClick(position: Int)
     }
 }
