@@ -1,3 +1,3 @@
 package com.abrselmantutorials.abrrecyclerviewapp
 
-data class DataModelForRecyclerViewItem(val imageResource: Int, val heading: String, val description: String)
+data class DataModelForRecyclerViewItem(val imageResource: Int, var heading: String, val description: String)

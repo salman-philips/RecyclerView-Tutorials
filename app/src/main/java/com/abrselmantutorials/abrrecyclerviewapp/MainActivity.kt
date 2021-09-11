@@ -3,21 +3,29 @@ package com.abrselmantutorials.abrrecyclerviewapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.random.Random
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DataAdapter.DataItemOnClickListener {
     private lateinit var dataRecyclerView: RecyclerView
     private val dataModelForRecyclerViewItemList = generateDataModelForRecyclerViewItemList(500)
     private val dataAdapter: DataAdapter =
-        DataAdapter(dataModelForRecyclerViewItemList)
+        DataAdapter(dataModelForRecyclerViewItemList, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         dataRecyclerView = findViewById(R.id.recycler_view)
+//        dataRecyclerView.setOnClickListener {
+//            Toast.makeText(
+//                this@MainActivity,
+//                "item clicked",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
         dataRecyclerView.adapter = dataAdapter
         dataRecyclerView.layoutManager = LinearLayoutManager(this)
         dataRecyclerView.setHasFixedSize(true)
@@ -57,5 +65,12 @@ class MainActivity : AppCompatActivity() {
         val randomInsertIndex = Random.nextInt(8)
         dataModelForRecyclerViewItemList.removeAt(randomInsertIndex)
         dataAdapter.notifyItemRemoved(randomInsertIndex)
+    }
+
+    override fun onDataItemClick(position: Int) {
+        Toast.makeText(this, "Item clicked at position ${position + 1}", Toast.LENGTH_SHORT).show()
+        val itemClicked = dataModelForRecyclerViewItemList[position]
+        itemClicked.heading="Item Clicked"
+        dataAdapter.notifyItemChanged(position)
     }
 }
