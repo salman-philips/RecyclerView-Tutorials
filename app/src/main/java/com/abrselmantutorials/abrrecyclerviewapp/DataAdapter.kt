@@ -22,10 +22,6 @@ class DataAdapter(private val modelList: List<DataModelForRecyclerViewItem>) :
         holder.imageView.setImageResource(currentItem.imageResource)
         holder.heading.text = currentItem.heading
         holder.description.text = currentItem.description
-        //holder.bindData(currentItem)
-        if(position==0){
-            holder.description.setBackgroundColor(holder.itemView.context.resources.getColor(R.color.design_default_color_secondary_variant))
-        }
     }
 
     override fun getItemCount(): Int {
@@ -36,11 +32,5 @@ class DataAdapter(private val modelList: List<DataModelForRecyclerViewItem>) :
         val imageView: ImageView = itemView.findViewById(R.id.image_view)
         val heading: TextView = itemView.findViewById(R.id.heading)
         val description: TextView = itemView.findViewById(R.id.description)
-
-        fun bindData(currentItem: DataModelForRecyclerViewItem){
-            imageView.setImageResource(currentItem.imageResource)
-            heading.text = currentItem.heading
-           description.text = currentItem.description
-        }
     }
 }
