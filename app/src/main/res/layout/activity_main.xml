@@ -3,12 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:foreground="?attr/selectableItemBackground"
     tools:context=".MainActivity">
     <!--The clipToPAdding avoids to clip the inner content of the view
     group(ConstraintLayout) to its children here being RecyclerView when set to false
     by default true-->
     <!--    here the recycler view is the container-->
     <!--    Add the RecyclerView container-->
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
@@ -17,7 +23,7 @@
         android:clipToPadding="false"
         android:padding="4dp"
         tools:listitem="@layout/recycler_view_item" />
-
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <LinearLayout
         android:id="@+id/button_layout"
         android:layout_width="match_parent"

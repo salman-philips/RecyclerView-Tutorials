@@ -32,13 +32,14 @@ class DataAdapter(
     }
 
     inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+        View.OnClickListener,View.OnLongClickListener {
         val imageView: ImageView = itemView.findViewById(R.id.image_view)
         val heading: TextView = itemView.findViewById(R.id.heading)
         val description: TextView = itemView.findViewById(R.id.description)
 
         init {
             itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
         }
 
         override fun onClick(v: View?) {
@@ -48,9 +49,18 @@ class DataAdapter(
             }
         }
 
+        override fun onLongClick(v: View?): Boolean {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                dataItemOnClickListener.onDataItemLongClick(position)
+            }
+            return true
+        }
+
     }
 
     interface DataItemOnClickListener {
         fun onDataItemClick(position: Int)
+        fun onDataItemLongClick(position: Int)
     }
 }
